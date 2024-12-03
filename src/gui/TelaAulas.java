@@ -6,6 +6,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +25,8 @@ import classes.Aulas;
 import classes.Curso;
 import classes.Professor;
 import classes.Sala;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class TelaAulas extends JFrame {
 
@@ -51,7 +58,7 @@ public class TelaAulas extends JFrame {
 	private Sala sala;
 	private Professor professor;
 	private Aulas aulas;
-
+	private List<Aluno> listaAluno;
 	/**
 	 * Launch the application.
 	 */
@@ -72,13 +79,14 @@ public class TelaAulas extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAulas() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\edilson.jsilva7\\Downloads\\Iconfactory-Red-Tab-Games-2.32.png"));
 		
 		//Vamos instanciar as nossas classes para gerar 
 		//objetos dos itens relacionados a aula.
 		//Estes objetos estão vazio e serão preenchidos quando o 
 		//usuário clicar nos botões de incluir
 		curso = new Curso();
-		aluno = new Aluno();
+		listaAluno = new ArrayList<Aluno>();
 		sala = new Sala();
 		professor = new Professor();
 		aulas = new Aulas();
@@ -283,7 +291,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Id da Aula:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(10, 11, 169, 14);
+		lblNewLabel_1.setBounds(10, 11, 99, 14);
 		panel_aulas.add(lblNewLabel_1);
 		
 		txtIdAula = new JTextField();
@@ -313,7 +321,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Início:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(10, 48, 169, 14);
+		lblNewLabel_1_1.setBounds(10, 48, 76, 14);
 		panel_aulas.add(lblNewLabel_1_1);
 		
 		txtInicio = new JTextField();
@@ -323,7 +331,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Término:");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_1.setBounds(238, 48, 169, 14);
+		lblNewLabel_1_1_1.setBounds(238, 48, 99, 14);
 		panel_aulas.add(lblNewLabel_1_1_1);
 		
 		JTextField txtTermino = new JTextField();
@@ -342,7 +350,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Sala");
 		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_2.setBounds(10, 75, 169, 14);
+		lblNewLabel_1_1_2.setBounds(10, 75, 76, 14);
 		panel_aulas.add(lblNewLabel_1_1_2);
 		
 		txtSala = new JTextField();
@@ -351,6 +359,7 @@ public class TelaAulas extends JFrame {
 		panel_aulas.add(txtSala);
 		
 		JButton btnIncluirCurso = new JButton("Incluir curso");
+		btnIncluirCurso.setIcon(new ImageIcon("C:\\Users\\edilson.jsilva7\\Downloads\\Iconfactory-Red-Tab-Internet-2.32.png"));
 		btnIncluirCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -377,12 +386,17 @@ public class TelaAulas extends JFrame {
 				btnIncluirCurso.setEnabled(false);
 			}
 		});
-		btnIncluirCurso.setBounds(30, 510, 141, 23);
+		btnIncluirCurso.setBounds(30, 510, 141, 43);
 		contentPane.add(btnIncluirCurso);
 		
 		JButton btnIncluirSala = new JButton("Incluir sala");
+		btnIncluirSala.setIcon(new ImageIcon("C:\\Users\\edilson.jsilva7\\Downloads\\Iconfactory-Red-Tab-Picture-Clipping.32.png"));
 		btnIncluirSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//Preencher os dados do objeto sala
+				sala.setIdentificacao(txtIdentificacao.getText());
+				sala.setDescricao(txtDescricao.getText());
 				
 				txtSala.setText(txtIdentificacao.getText());
 				
@@ -392,12 +406,17 @@ public class TelaAulas extends JFrame {
 				
 			}
 		});
-		btnIncluirSala.setBounds(181, 510, 141, 23);
+		btnIncluirSala.setBounds(181, 510, 141, 43);
 		contentPane.add(btnIncluirSala);
 		
 		JButton btnIncluirProfessor = new JButton("Incluir professor");
+		btnIncluirProfessor.setIcon(new ImageIcon("C:\\Users\\edilson.jsilva7\\Downloads\\Iconfactory-Red-Tab-Games-2.32.png"));
 		btnIncluirProfessor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				professor.setNome(txtNomeProfessor.getText());
+				professor.setEmail(txtEmailProfessor.getText());
+				professor.setCpf(txtCpfProfessor.getText());
 				
 				txtProfessor.setText(txtNomeProfessor.getText());
 				
@@ -408,28 +427,55 @@ public class TelaAulas extends JFrame {
 				btnIncluirProfessor.setEnabled(false);
 			}
 		});
-		btnIncluirProfessor.setBounds(332, 510, 141, 23);
+		btnIncluirProfessor.setBounds(332, 510, 141, 43);
 		contentPane.add(btnIncluirProfessor);
 		
 		JButton btnIncluirAluno = new JButton("Incluir aluno");
+		btnIncluirAluno.setIcon(new ImageIcon("C:\\Users\\edilson.jsilva7\\Downloads\\Iron-Devil-Ids-Space-Lab-Devils-Tower.32.png"));
 		btnIncluirAluno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				aluno = new Aluno();
+				
+				aluno.setNome(txtNomeAluno.getText());
+				aluno.setEmail(txtEmailAluno.getText());
+				aluno.setCpf(txtCpfAluno.getText());
+				aluno.setIdade(Integer.parseInt(txtIdade.getText()));
+				listaAluno.add(aluno);
 				
 				cboAluno.addItem(txtNomeAluno.getText());
 				
 			}
 		});
-		btnIncluirAluno.setBounds(483, 510, 141, 23);
+		btnIncluirAluno.setBounds(483, 510, 141, 43);
 		contentPane.add(btnIncluirAluno);
 		
 		JButton btnCriarSala = new JButton("Criar a Aula");
+		btnCriarSala.setIcon(new ImageIcon("C:\\Users\\edilson.jsilva7\\Downloads\\Iconfactory-Red-Tab-Games-2.32.png"));
 		btnCriarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				aulas.setId(Integer.parseInt(txtIdAula.getText()));
+				aulas.setCurso(curso);
+				aulas.setProfessor(professor);
+				
+				aulas.setInicio(new Date(Long.parseLong(txtInicio.getText())));	
+				aulas.setTermino(new Date(Long.parseLong(txtTermino.getText())));
+				
+				aulas.setAlunos(listaAluno.toArray(new Aluno[0]));
+				aulas.setSala(sala);
+				
+				txtIdAula.setEnabled(false);
+				txtCurso.setEnabled(false);
+				txtProfessor.setEnabled(false);
+				txtInicio.setEnabled(false);
+				txtTermino.setEnabled(false);
+				txtSala.setEnabled(false);
 				
 				System.out.print(cboAluno.getItemAt(0));
 			}
 		});
-		btnCriarSala.setBounds(634, 510, 141, 23);
+		btnCriarSala.setBounds(634, 510, 141, 43);
 		contentPane.add(btnCriarSala);
 	}
 }
